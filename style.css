@@ -1,6 +1,7 @@
 body {
     margin: 0px;
     background-color: lightgray;
+    font-family: Tahoma, Verdana, sans-serif;
 }
 #main {
     margin-left: auto;
@@ -17,6 +18,14 @@ body {
 #viewport {
     height: 160px;
     width: auto;
+    font-size: 100px;
+    color: white;
+    position: relative;
+}
+#result {
+    position: absolute;
+    bottom: 15px;
+    right: 25px;
 }
 #buttons {
     display: flex;
@@ -32,7 +41,6 @@ body {
     border: 0px;
     border-radius: 100px;
     font-size: 35px;
-    font-family: Tahoma, Verdana, sans-serif;
     text-align: center;
 }
 .special {
@@ -50,20 +58,20 @@ body {
 .num0 {
     width: 190px;
 }
-.calchover {
+.calc:hover {
     background-color: rgb(255, 179, 38);
 }
 .calcactive {
     background-color: white;
     color: orange;
 }
-.numhover {
+.num:hover {
     background-color: rgb(109, 109, 109);
 }
 .numactive {
     background-color: rgb(148, 148, 148);
 }
-.specialhover {
+.special:hover {
     background-color: rgb(194, 193, 193);
 }
 .specialactive {
