@@ -1,5 +1,5 @@
 //create operator for the calculatr
-let operator1 = 0;
+let operator1 = "0";
 let operator2;
 let operator3;
 let result;
@@ -14,7 +14,11 @@ let buttons = document.querySelectorAll(".button");
 buttons.forEach(button => button.addEventListener("click", () => {
     switch (button.classList[1]) {
         case "num":
+            if (button.classList[2] === "comma") {
+                number(".");
+            } else {
             number(button.innerText);
+            };
             break;
         case "calc":
             if (button.classList[2] === "equal") {
@@ -58,33 +62,34 @@ let calculate = () => {
     if (!(operator3 === undefined)){
         switch (operator2) {
             case "÷":
-                division(operator1,operator3);
+                division(+(operator1),+(operator3));
                 break
             case "X":
-                multiplication(operator1,operator3);
+                multiplication(+(operator1),+(operator3));
                 break
             case "+":
-                addition(operator1,operator3);
+                addition(+(operator1),+(operator3));
                 break
             case "-":
-                subtraction(operator1,operator3);
+                subtraction(+(operator1),+(operator3));
                 break
         };
     } else {
         switch (operator2) {
             case undefined:
+                result = operator1;
                 break;
             case "÷":
-                division(operator1,operator1);
+                division(+(operator1),+(operator1));
                 break
             case "X":
-                multiplication(operator1,operator1);
+                multiplication(+(operator1),+(operator1));
                 break
             case "+":
-                addition(operator1,operator1);
+                addition(+(operator1),+(operator1));
                 break
             case "-":
-                subtraction(operator1,operator1);
+                subtraction(+(operator1),+(operator1));
                 break
         };
     };
@@ -99,18 +104,21 @@ let calculate = () => {
 
 //changes operators based on the numbers pressed
 let number = value => {
-    //create comma variation
     if (afterOperation) {
-        operator1 = 0;
+        operator1 = "0";
+        afterOperation = false;
     };
     if (operator2 === undefined) {
-        operator1 = +(operator1.toString()+value);
+        operator1 = operator1+value;
+        if (operator1[0] === "0") {
+            operator1 = operator1.replace("0", "");
+        };
         whatsOnScreen = "operator1";
     } else {
         if (operator3 === undefined) {
-            operator3 = +(value);
+            operator3 = value;
         } else {
-            operator3 = +(operator3.toString()+value);
+            operator3 = operator3+value;
         }
         whatsOnScreen = "operator3";
     };
@@ -122,10 +130,10 @@ let calculation = oper => {
     if (operator2 === undefined || operator3 === undefined) {
         operator2 = oper;
     } else {
-        calculate();
+        calculate(); //in case you already have a calculation
         operator2 = oper;
-    }
-    //add case in witch operator 3 exists so you have to run calculate()
+    };
+    afterOperation = false;
 };
 
 //this function does special stuff
