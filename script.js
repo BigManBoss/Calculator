@@ -171,3 +171,8 @@ let reset = () => {
     afterOperation = false;
     updateScreen();
 };
+/*
+tasks to do:
+finish css
+add design js (smaller text when too big)
+*/
