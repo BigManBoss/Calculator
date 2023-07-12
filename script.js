@@ -17,7 +17,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
             if (button.classList[2] === "comma") {
                 number(".");
             } else {
-            number(button.innerText);
+                number(button.innerText);
             };
             break;
         case "calc":
@@ -28,23 +28,9 @@ buttons.forEach(button => button.addEventListener("click", () => {
             };
             break
         case "special":
-            alert("still not coded! sorry");
+            specialStuff(button.innerText);
             break;
     };
-
-
-    /*
-    if button is number 
-    if else is calc
-    (if no number has alread been selected)
-    if else is special calc
-    else (it is going to be the equal button)
-    
-    example: number(button.innerText)
-
-
-    */
-
 }));
 
 //updates the screen of the calculator
@@ -122,6 +108,9 @@ let number = value => {
         }
         whatsOnScreen = "operator3";
     };
+    if (!(operator1.lastIndexOf(".") === operator1.indexOf("."))) {
+        operator1 = operator1.slice(0, operator1.lastIndexOf(".")) + operator1.slice(operator1.lastIndexOf(".")+1, operator1.length)
+    };
     updateScreen();
 };
 
@@ -137,7 +126,24 @@ let calculation = oper => {
 };
 
 //this function does special stuff
-let specialStuff = () => {};
+let specialStuff = spec => {
+    if (spec === "%"){
+        if (operator3 === undefined) {
+            operator1 = (+operator1)/100;
+        } else {
+            operator3 = (+operator3)/100;
+        };
+    } else  if (spec === "+/-") {
+        if (operator3 === undefined) {
+            operator1 = -operator1;
+        } else {
+            operator3 = -operator3;
+        };
+    } else {
+        reset();
+    };
+    updateScreen();
+};
 
 //functions to calculate
 let division = (a,b) => {
