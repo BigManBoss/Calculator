@@ -32,6 +32,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
             specialStuff(button.innerText);
             break;
     };
+    checkLength();
 }));
 
 //updates the screen of the calculator
@@ -84,6 +85,7 @@ let calculate = () => {
     reset();
     afterOperation = true;
     operator1 = hello;
+    resetfontheight();
     updateScreen();
 };
 
@@ -178,11 +180,30 @@ let reset = () => {
     whatsOnScreen = "operator1";
     afterOperation = false;
     hasComma = false;
+    resetfontheight();
     updateScreen();
 };
 //check if too long
-/*
-tasks to do:
-finish css
-add design js (smaller text when too big)
-*/
+let resultdiv = document.getElementById("result");
+let checkdivresult = () => {
+    resultdiv = document.getElementById("result")
+    return resultdiv;
+};
+const viewport = document.getElementById("viewport");
+let fontsizeresult = 100;
+console.log(resultdiv)
+let checkLength = () => {
+    checkdivresult();
+    while(resultdiv.clientWidth > (viewport.clientWidth-30)) {
+        fontsizeresult =  fontsizeresult - 1;
+        resultdiv.setAttribute("style", `font-size: ${fontsizeresult}px`)
+        checkdivresult();
+        console.log(resultdiv.clientWidth)
+    };
+
+};
+//fix not going back to size code
+let resetfontheight = () => {
+    fontsizeresult = 100;
+    resultdiv.setAttribute("style", `font-size: ${fontsizeresult}px`);
+};
