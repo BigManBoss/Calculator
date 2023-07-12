@@ -5,6 +5,7 @@ let operator3;
 let result;
 let whatsOnScreen = "operator1";
 let afterOperation = false;
+let hasComma = false; //checks for commas
 
 //set the viewport
 const view = document.getElementById("result");
@@ -79,12 +80,10 @@ let calculate = () => {
                 break
         };
     };
-    operator1 = result;
-    result = undefined;
-    operator2 = undefined;
-    operator3 = undefined;
-    whatsOnScreen = "operator1";
+    let hello = result;
+    reset();
     afterOperation = true;
+    operator1 = hello;
     updateScreen();
 };
 
@@ -94,10 +93,16 @@ let number = value => {
         operator1 = "0";
         afterOperation = false;
     };
+    if (hasComma && value === ".") {
+        value = "";
+    };
     if (operator2 === undefined) {
         operator1 = operator1+value;
         if (operator1[0] === "0") {
             operator1 = operator1.replace("0", "");
+        };
+        if (value === ".") {
+            hasComma = true;
         };
         whatsOnScreen = "operator1";
     } else {
@@ -105,12 +110,15 @@ let number = value => {
             operator3 = value;
         } else {
             operator3 = operator3+value;
-        }
+        };
+        if (value === ".") {
+            hasComma = true;
+        };
         whatsOnScreen = "operator3";
     };
-    if (!(operator1.lastIndexOf(".") === operator1.indexOf("."))) {
-        operator1 = operator1.slice(0, operator1.lastIndexOf(".")) + operator1.slice(operator1.lastIndexOf(".")+1, operator1.length)
-    };
+    // if (!(operator1.lastIndexOf(".") === operator1.indexOf("."))) {
+    //     operator1 = operator1.slice(0, operator1.lastIndexOf(".")) + operator1.slice(operator1.lastIndexOf(".")+1, operator1.length)
+    // };
     updateScreen();
 };
 
@@ -169,8 +177,10 @@ let reset = () => {
     result = undefined;
     whatsOnScreen = "operator1";
     afterOperation = false;
+    hasComma = false;
     updateScreen();
 };
+//check if too long
 /*
 tasks to do:
 finish css
